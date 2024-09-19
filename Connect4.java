@@ -20,17 +20,25 @@ public class Connect4 {
 		
 		//play a turn
 		while (winner == false && turn <= 42){
-			boolean validPlay;
-			int play;
+			boolean validPlay = false;
+			int play = -1;
 			do {
-				display(grid);
+				try {
+					display(grid);
 				
-				System.out.print("Player " + player + ", choose a column: ");
-				play = in.nextInt();
-				
-				//validate play
-				validPlay = validate(play,grid);
-			}while (validPlay == false);
+					System.out.print("Player " + player + ", choose a column: ");
+					play = in.nextInt();
+					
+					//validate play
+					validPlay = validate(play,grid);
+					if (!validPlay) {
+						System.out.println("Invalid Column or Column is full. Try again");
+					}
+				} catch (Exception e) {
+					System.out.println("Invalid Input");
+					in.nextLine();
+				}
+			}while (!validPlay);
 			
 			//drop the checker
 			for (int row = grid.length-1; row >= 0; row--){
